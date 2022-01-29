@@ -1,0 +1,8 @@
+{
+  "name": "litrants",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Sodiq Farayola",
+  "license": "MIT",
+  "devDependencies": {}
+}
