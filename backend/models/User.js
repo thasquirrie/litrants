@@ -25,6 +25,11 @@ const userSchema = mongoose.Schema(
       lowercase: true,
       unique: true,
     },
+    role: {
+      type: String,
+      enum: ['user', 'moderator', 'admin'],
+      default: 'user',
+    },
     photo: {
       type: String,
       default: 'default.jpg',
@@ -64,12 +69,12 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.pre('save', async function (next) {
-  if (!isModified('password') || this.isNew) return next();
+  if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangedAt = Date.now() - 2000;
 });
 
-userSchema.methods.comparePassword = async function (
+userSchema.methods.comparePasswords = async function (
   candidatePassword,
   userPassword
 ) {
